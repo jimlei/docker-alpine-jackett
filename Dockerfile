@@ -12,7 +12,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN mkdir -p /config \
-  && chown -R nobody:users /config
+  && chown -R nobody:users /config \
   && ln -s /config /usr/share/Jackett
 
 EXPOSE 9117

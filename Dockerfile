@@ -13,6 +13,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 
 RUN mkdir -p /config \
   && chown -R nobody:users /config
+  && ln -s /config /usr/share/Jackett
 
 EXPOSE 9117
 VOLUME /config

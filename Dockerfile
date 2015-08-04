@@ -1,21 +1,20 @@
-FROM mono:3.10
+FROM mono:4
 MAINTAINER Nonobis <nonobis@gmail.com>
 
 ENV VERSION 0.6.0
 
-RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
-  && apt-get update -q \
-  && apt-get install -qy libcurl4-openssl-dev unzip wget \
-  && apt-get clean \
-  && wget https://github.com/zone117x/Jackett/releases/download/v$VERSION/Jackett.Mono.v$VERSION.zip -O /tmp/jackett.zip \
-  && unzip /tmp/jackett.zip -d /tmp/jackett \
-  && mv /tmp/jackett/Jackett.Mono /app \
-  && chown -R nobody:users /app \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-RUN mkdir -p /config \
-  && chown -R nobody:users /config \
-  && ln -s /config /usr/share/Jackett
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+RUN apt-get update -q
+RUN apt-get install -qy libcurl4-openssl-dev unzip wget
+RUN apt-get clean
+RUN wget https://github.com/zone117x/Jackett/releases/download/v$VERSION/Jackett.Mono.v$VERSION.zip -O /tmp/jackett.zip
+RUN unzip /tmp/jackett.zip -d /tmp/jackett
+RUN mv /tmp/jackett/Jackett.Mono /app
+RUN chown -R nobody:users /app
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN mkdir -p /config
+RUN chown -R nobody:users /config
+RUN ln -s /config /usr/share/Jackett
 
 EXPOSE 9117
 VOLUME /config

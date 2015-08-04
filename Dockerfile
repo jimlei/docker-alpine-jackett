@@ -1,4 +1,4 @@
-FROM mono:3.10
+FROM mono4:
 
 # Original dockerfile by <ammmze@gmail.com>
 MAINTAINER Nonobis <nonobis@gmail.com>
@@ -6,10 +6,11 @@ MAINTAINER Nonobis <nonobis@gmail.com>
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
   && apt-get update -q \
   && apt-get install -qy libcurl4-openssl-dev unzip wget \
-  && apt-get clean \
-  && wget https://github.com/zone117x/Jackett/releases/download/v0.6.0/Jackett.Mono.v0.6.0.zip -O /tmp/jackett.zip \
+  && apt-get clean
+  
+RUN wget https://github.com/zone117x/Jackett/releases/download/v0.6.0/Jackett.Mono.v0.6.0.zi -pO /tmp/jackett.zip \
   && unzip /tmp/jackett.zip -d /tmp/jackett \
-  && mv /tmp/jackett/Release /app \
+  && mv /tmp/jackett /app \
   && chown -R nobody:users /app \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

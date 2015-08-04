@@ -1,4 +1,4 @@
-FROM mono4:
+FROM mono:4
 
 # Original dockerfile by <ammmze@gmail.com>
 MAINTAINER Nonobis <nonobis@gmail.com>

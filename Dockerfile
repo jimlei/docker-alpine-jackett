@@ -9,7 +9,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
   && apt-get update -q \
   && apt-get install -qy libcurl4-openssl-dev unzip wget \
   && apt-get clean \
-  && wget https://github.com/zone117x/Jackett/releases/download/v{$VERSION}/Jackett.Mono.v{$VERSION}.zip -pO /tmp/jackett.zip \
+  && wget https://github.com/zone117x/Jackett/releases/download/v$VERSION/Jackett.Mono.v$VERSION.zip -pO /tmp/jackett.zip \
   && unzip /tmp/jackett.zip -d /tmp/jackett \
   && mv /tmp/jackett/Release /app \
   && chown -R nobody:users /app \

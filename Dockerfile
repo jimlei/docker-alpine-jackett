@@ -8,6 +8,8 @@ RUN apt-get update -q
 RUN apt-get install -qy libcurl4-openssl-dev zip unzip wget
 RUN apt-get clean
 RUN wget https://github.com/zone117x/Jackett/releases/download/v$VERSION/Jackett.Mono.v$VERSION.zip -O /tmp/jackett.zip
+RUN mkdir -p /tmp
+RUN mkdir -p /tmp/jackett
 RUN unzip -tq /tmp/jackett.zip
 RUN unzip -v /tmp/jackett.zip -d /tmp/jackett
 RUN mv /tmp/jackett /app

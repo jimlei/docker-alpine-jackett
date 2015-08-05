@@ -5,11 +5,11 @@ ENV VERSION 0.6.0
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 RUN apt-get update -q
-RUN apt-get install -qy libcurl4-openssl-dev unzip wget
+RUN apt-get install -qy libcurl4-openssl-dev zip unzip wget
 RUN apt-get clean
 RUN wget https://github.com/zone117x/Jackett/releases/download/v$VERSION/Jackett.Mono.v$VERSION.zip -O /tmp/jackett.zip
-RUN unzip /tmp/jackett.zip -d /tmp/jackett
-RUN mv /tmp/jackett/Jackett.Mono /app
+RUN unzip -tq /tmp/jackett.zip
+RUN unzip /tmp/jackett.zip -d /app
 RUN chown -R nobody:users /app
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN mkdir -p /config

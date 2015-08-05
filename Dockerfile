@@ -1,7 +1,9 @@
 FROM mono:4
-MAINTAINER Nonobis <nonobis@gmail.com>
+MAINTAINER Arnaud Dartois <nonobis@gmail.com>
 
 ENV VERSION 0.6.0
+
+ADD /app
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 RUN apt-get update -q

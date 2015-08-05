@@ -23,8 +23,8 @@ EXPOSE 9117
 VOLUME /config
 VOLUME /app
 
-ADD start.sh \ 
-  RUN chmod +x /start.sh
+ADD start.sh /
+RUN chmod +x /start.sh
 
 # Currently there is a bug in Jackett where running as non-root user causes the app to not start up
 # See: https://github.com/zone117x/Jackett/issues/37

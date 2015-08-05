@@ -8,9 +8,8 @@ function handle_signal {
 
 trap "handle_signal" SIGINT SIGTERM SIGHUP
 
-echo "check /app content"
+echo "go to /app"
 cd /app
-ll
 echo "starting jackett"
-mono JackettConsole.exe & wait
+mono ./JackettConsole.exe & wait
 echo "stopping jackett"

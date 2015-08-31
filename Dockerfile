@@ -5,7 +5,7 @@ ENV VERSION 0.6.3
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 RUN apt-get update -q
-RUN apt-get install -qy libcurl4-openssl-dev zip unzip wget
+RUN apt-get install -qy libcurl4-gnutls-dev tar wget
 RUN apt-get clean
 RUN wget https://jackett.net/Download/v${VERSION}/Jackett.Mono.v${VERSION}.tar.bz2 -O /tmp/jackett.tar.bz2
 RUN mkdir -p /tmp/jackett

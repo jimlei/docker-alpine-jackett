@@ -1,17 +1,15 @@
 FROM mono:4
 MAINTAINER Arnaud Dartois <nonobis@gmail.com>
 
-ENV VERSION 0.6.0
+ENV VERSION 0.6.3
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 RUN apt-get update -q
 RUN apt-get install -qy libcurl4-openssl-dev zip unzip wget
 RUN apt-get clean
-RUN wget https://github.com/zone117x/Jackett/releases/download/v$VERSION/Jackett.Mono.v$VERSION.zip -O /tmp/jackett.zip
-RUN mkdir -p /tmp
+RUN wget https://jackett.net/Download/v$VERSION/Jackett.Mono.v$VERSION.tar.bz2 -O /tmp/jackett.tar.bz2
 RUN mkdir -p /tmp/jackett
-RUN unzip -tq /tmp/jackett.zip
-RUN unzip -v /tmp/jackett.zip -d /tmp/jackett
+RUN tar -jxvf /tmp/jackett.tar.bz2 -C /tmp/jackett
 RUN mv /tmp/jackett /app
 RUN chown -R nobody:users /app
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

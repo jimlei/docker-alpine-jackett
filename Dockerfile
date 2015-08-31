@@ -10,7 +10,7 @@ RUN apt-get clean
 RUN wget https://jackett.net/Download/v$VERSION/Jackett.Mono.v$VERSION.tar.bz2 -O /tmp/jackett.tar.bz2
 RUN mkdir -p /tmp/jackett
 RUN tar -jxvf /tmp/jackett.tar.bz2 -C /tmp/jackett
-RUN mv /tmp/jackett /app
+RUN mv /tmp/jackett/Jackett /app
 RUN chown -R nobody:users /app
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN mkdir -p /config

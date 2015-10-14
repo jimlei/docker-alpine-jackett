@@ -14,9 +14,9 @@ RUN apk add mono --update-cache --repository http://dl-3.alpinelinux.org/alpine/
 RUN curl -L https://jackett.net/Download/v${VERSION}/Jackett.Mono.v${VERSION}.tar.bz2 -o /tmp/jackett.tar.bz2
 RUN mkdir -p /tmp/jackett
 RUN tar -jxvf /tmp/jackett.tar.bz2 -C /tmp/jackett
+RUN mkdir -p /data/app
 RUN mv /tmp/jackett/Jackett /data/app
 RUN chown -R nobody:users /data/app
-RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN mkdir -p /data/config
 RUN chown -R nobody:users /data/config
 RUN ln -s /data/config /usr/share/Jackett

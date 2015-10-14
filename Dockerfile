@@ -4,11 +4,6 @@ MAINTAINER guillaumeGL <guillaume.lebeau@outlook.com>
 
 ENV VERSION 0.6.8
 
-RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-RUN apt-get update -q
-RUN apt-get install -qy libcurl4-openssl-dev tar bzip2
-RUN apt-get clean
-
 # Update the package list
 RUN apk update
 

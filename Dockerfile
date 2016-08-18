@@ -1,33 +1,28 @@
 FROM gliderlabs/alpine:latest
 
-MAINTAINER guillaumeGL <guillaume.lebeau@outlook.com>
+MAINTAINER Jim Leirvik <jim@jimleirvik.no>
 
-ENV VERSION 0.6.8
+ENV VERSION="0.6.45.2" \
+    UID="1100"
 
-# Update the package list
-RUN apk update
-
-# Install all needed packages. Tar+Bzip2 to uncompress Jackett archive and libcurl+Mono as dependencies to Jackett
-RUN apk add curl tar bzip2
-RUN apk add mono --update-cache --repository http://alpine.gliderlabs.com/alpine/edge/testing/ --allow-untrusted
-
-RUN curl -L https://jackett.net/Download/v${VERSION}/Jackett.Mono.v${VERSION}.tar.bz2 -o /tmp/jackett.tar.bz2
-RUN mkdir -p /tmp/jackett
-RUN tar -jxvf /tmp/jackett.tar.bz2 -C /tmp/jackett
-RUN mkdir -p /data/app
-RUN mv /tmp/jackett/Jackett /data/app
-RUN chown -R nobody:users /data/app
-RUN mkdir -p /data/config
-RUN chown -R nobody:users /data/config
-RUN ln -s /data/config /usr/share/Jackett
+RUN adduser -D -u ${UID} jackett && \
+    apk add --update openssl libcurl tar bzip2 mono --update-cache --repository http://alpine.gliderlabs.com/alpine/edge/testing/ --allow-untrusted && \
+    wget -O /tmp/jackett.tar.gz https://github.com/raspdealer/Jackett/releases/download/v${VERSION}/Jackett.Binaries.Mono.tar.gz && \
+    mkdir -p /config /Jackett /tmp/jackett && \
+    tar -zxvf /tmp/jackett.tar.gz -C /tmp/jackett && \
+    mv /tmp/jackett/Jackett-public/* /Jackett/. && \
+    chown -R jackett:jackett /config /Jackett && \
+    ln -s /config /usr/share/Jackett && \
+    rm -rf /tmp/* && \
+    rm -rf /var/cache/apk/*
 
 EXPOSE 9117
-VOLUME /data/config
-VOLUME /data/app
+VOLUME ['/config', '/Jackett']
 
 ADD start.sh /
 RUN chmod +x /start.sh
 
-WORKDIR /data/app/Jackett
+WORKDIR /Jackett
+USER jackett
 
 ENTRYPOINT ["mono", "JackettConsole.exe"]

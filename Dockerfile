@@ -17,7 +17,7 @@ RUN adduser -D -u ${UID} jackett && \
     rm -rf /var/cache/apk/*
 
 EXPOSE 9117
-VOLUME ['/config', '/Jackett']
+VOLUME '/config'
 
 ADD start.sh /
 RUN chmod +x /start.sh
